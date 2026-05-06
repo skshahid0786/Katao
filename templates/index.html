@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Katou AI - Main Node</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.12/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/EisaiAsakura/Live2D-Proxy/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/EisaiAsakura/Live2D-Proxy/live2d.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/EisaiAsakura/Live2D-Proxy/index.min.js"></script>
+    
+    <style>
+        :root { --glass: rgba(18, 18, 24, 0.45); --accent: #00f3ff; --drawer-bg: rgba(10, 10, 14, 0.96); --text-main: #f0f0f5; }
+        body, html { margin:0; padding:0; overflow:hidden; height:100vh; width:100vw; background:linear-gradient(135deg, #0f0c20 0%, #06060c 100%); font-family:sans-serif; color:var(--text-main); }
+        #live2d-container { position:fixed; inset:0; z-index:1; }
+        #sidebar { position:fixed; top:0; left:-300px; width:300px; height:100%; background:var(--drawer-bg); border-right:1px solid rgba(255,255,255,0.05); z-index:150; transition:0.4s ease; display:flex; flex-direction:column; padding:25px; box-sizing:border-box; }
+        #sidebar.open { left:0; }
+        #menu-toggle { position:fixed; top:20px; left:20px; z-index:160; background:var(--glass); border:1px solid rgba(255,255,255,0.08); padding:12px; border-radius:14px; cursor:pointer; color:white; }
+        #chat-interface { position:absolute; inset:0; z-index:10; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; pointer-events:none; }
+        #chat-history { flex-grow:1; display:flex; flex-direction:column; gap:12px; overflow-y:auto; padding-bottom:20px; pointer-events:auto; }
+        .message { padding:12px 18px; border-radius:20px; max-width:75%; font-size:15px; }
+        .user-msg { align-self:flex-end; background:rgba(255,255,255,0.12); border-right:2px solid var(--accent); }
+        .bot-msg { align-self:flex-start; background:rgba(10,10,15,0.65); }
+        #input-wrapper { background:rgba(8,8,12,0.7); border-radius:30px; padding:8px 8px 8px 20px; display:flex; gap:10px; border:1px solid rgba(255,255,255,0.08); pointer-events:auto; max-width:600px; margin:0 auto; width:100%; box-sizing:border-box; }
+        input { flex-grow:1; background:transparent; border:none; color:white; outline:none; font-size:16px; }
+        #send-btn { background:var(--accent); border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; }
+        .typing { font-style:italic; color:var(--accent); display:none; margin-bottom:8px; }
+    </style>
+</head>
+<body>
+
+    <button id="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    
+    <div id="sidebar">
+        <h3 style="color:var(--accent);">Session Log</h3>
+        <button onclick="localStorage.clear(); location.reload();" style="width:100%; padding:12px; border-radius:8px; border:none; background:var(--accent); font-weight:bold; cursor:pointer; color:#000;">Clear Session</button>
+    </div>
+
+    <div id="live2d-container"></div>
+
+    <div id="chat-interface">
+        <div id="chat-history"></div>
+        <div id="typing-indicator" class="typing">Bella is thinking...</div>
+        <div id="input-wrapper">
+            <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off">
+            <button id="send-btn" onclick="handleSend()">➔</button>
+        </div>
+    </div>
+
+    <script src="/static/js/live2d-setup.js"></script>
+    <script src="/static/js/drawer.js"></script>
+</body>
+</html>
+
