@@ -1,0 +1,35 @@
+{
+	"version":"Sample 1.0.0",
+	"model":"katou.moc",
+	"textures":[
+		"texture_00.png"
+	],
+	"expressions":[
+		{"name":"F_ANGRY","file":"F_ANGRY.exp.json"},
+		{"name":"F_DOWN","file":"F_DOWN.exp.json"},
+		{"name":"F_FUN","file":"F_FUN.exp.json"},
+		{"name":"F_NOMAL","file":"F_NOMAL.exp.json"},
+		{"name":"F_SAD","file":"F_SAD.exp.json"},
+		{"name":"F_SURPRISE","file":"F_SURPRISE.exp.json"}
+	],
+	"hit_areas":
+	[
+		{"name":"head", "id":"D_REF.PT_HEAD"},
+		{"name":"body", "id":"D_REF.PT_BODY"}
+	],
+	"motions":{
+		"tap_body":[
+			{"file":"I_ANGRY.mtn"},
+			{"file":"I_FUN.mtn"},
+			{"file":"I_SAD.mtn"},
+			{"file":"I_SURPRISE.mtn"},
+			{"file":"IDLING_01.mtn"}
+		],
+		"idle":[
+			{"file":"IDLING_02.mtn"},
+			{"file":"IDLING_03.mtn"}
+		]
+	},
+	"physics":"katou_01.physics.json",
+	"pose":"katou_01.pose.json"
+}
